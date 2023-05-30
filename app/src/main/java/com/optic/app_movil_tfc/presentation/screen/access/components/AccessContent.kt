@@ -22,12 +22,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.optic.app_movil_tfc.R
+import com.optic.app_movil_tfc.presentation.navigation.AppScreen
 import com.optic.app_movil_tfc.presentation.screen.access.AccessViewModel
 
 
 @Composable
-fun AccessContent(viewModel: AccessViewModel = hiltViewModel()){
+fun AccessContent(
+    navController: NavHostController,
+    viewModel: AccessViewModel = hiltViewModel()){
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -38,7 +42,7 @@ fun AccessContent(viewModel: AccessViewModel = hiltViewModel()){
             Logo()
             AccessCodeTextFiel(viewModel)
             PasswordTexteField(viewModel)
-            AccessButtom()
+            AccessButtom(navController)
         }
     }
 
@@ -88,14 +92,16 @@ fun PasswordTexteField(viewModel: AccessViewModel){
 }
 
 @Composable
-fun AccessButtom(){
+fun AccessButtom(navController : NavHostController){
 
     Button(
         modifier = Modifier.padding(
             top=10.dp,
             start = 30.dp
         ),
-        onClick = {},
+        onClick = {
+                  navController.navigate(route = AppScreen.Tasks.rute)
+        },
     ) {
         Text(text = "Aceptar")
     }
