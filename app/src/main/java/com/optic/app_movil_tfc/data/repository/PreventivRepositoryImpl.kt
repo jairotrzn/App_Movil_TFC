@@ -7,17 +7,12 @@ import com.optic.app_movil_tfc.core.Constants.MACHINES
 import javax.inject.Inject
 import javax.inject.Named
 import com.optic.app_movil_tfc.core.Constants.PREVENTIV
-import com.optic.app_movil_tfc.domain.model.Machine
 import com.optic.app_movil_tfc.domain.model.Preventiv
 import com.optic.app_movil_tfc.domain.repository.PreventivRepository
 import com.optic.gamermvvmapp.domain.model.Response
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import java.io.File
 
 
@@ -27,13 +22,13 @@ class PreventivRepositoryImpl @Inject constructor(
 ): PreventivRepository{
 
     override fun getPreventiv(accessCode: String): Flow<Response<Preventiv>> = callbackFlow {
-        val snapshotListener = providePreventivRef.whereEqualTo("accessCode", accessCode).addSnapshotListener { snapshot, e ->
-            val preventivResponse = if (snapshot != null) {
-                val preventiv = snapshot.toObjects(Preventiv::class.java)
-                snapshot.documents.forEachIndexed { index, document ->
-                    preventiv[index].id = document.id
-                }
-                Response.Success(preventiv.firstOrNull())
+        val query = providePreventivRef.whereEqualTo("accessCode", accessCode)
+        val snapshotListener = query.addSnapshotListener { snapshot, e ->
+            val preventivResponse = if (snapshot != null && !snapshot.isEmpty) {
+                val document = snapshot.documents.first()
+                val preventiv = document.toObject(Preventiv::class.java)
+                preventiv?.id = document.id
+                Response.Success(preventiv)
             } else {
                 Response.Failure(e)
             }

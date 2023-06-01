@@ -19,6 +19,7 @@ import com.optic.app_movil_tfc.R
 import com.optic.app_movil_tfc.presentation.navigation.AppScreen
 import com.optic.app_movil_tfc.presentation.screen.access.AccessViewModel
 import androidx.compose.material.*
+import androidx.compose.ui.graphics.Color
 
 
 @Composable
@@ -35,7 +36,8 @@ fun AccessContent(
             Logo()
             AccessCodeTextFiel(viewModel)
             PasswordTexteField(viewModel)
-            AccessButtom(navController)
+            ErrorMnsg(viewModel)
+            AccessButtom(viewModel,navController)
         }
     }
 
@@ -83,7 +85,9 @@ fun PasswordTexteField(viewModel: AccessViewModel){
 }
 
 @Composable
-fun AccessButtom(navController : NavHostController){
+fun AccessButtom(
+    viewModel: AccessViewModel,
+    navController : NavHostController){
 
     Button(
         modifier = Modifier.padding(
@@ -91,9 +95,22 @@ fun AccessButtom(navController : NavHostController){
             start = 30.dp
         ),
         onClick = {
-                  navController.navigate(route = AppScreen.Tasks.rute)
+            viewModel.navegacion(navController)
         },
     ) {
         Text(text = "Aceptar")
     }
+}
+
+@Composable
+fun ErrorMnsg(viewModel: AccessViewModel){
+
+    if(viewModel.errorVisible.value){
+        Text(
+            text = "Código de acceso o contraseña incorrecta",
+            color = Color.Red,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+
 }

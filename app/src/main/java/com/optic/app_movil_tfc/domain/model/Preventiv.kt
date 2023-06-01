@@ -1,71 +1,72 @@
 package com.optic.app_movil_tfc.domain.model
 
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.PropertyName
+import com.google.firebase.firestore.ktx.toObject
 import com.google.gson.Gson
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 data class Preventiv(
-    var id:String ="",
-    val accessCode: String = "",
-    val color: String = "",
-    val end: String = "",
+    @get:PropertyName("id")
+    @set:PropertyName("id")
+    var id: String = "",
+
+    @get:PropertyName("accessCode")
+    @set:PropertyName("accessCode")
+    var accessCode: String = "",
+
+    @get:PropertyName("color")
+    @set:PropertyName("color")
+    var color: String = "",
+
+    @get:PropertyName("end")
+    @set:PropertyName("end")
+    var end: String = "",
+
+    @get:PropertyName("namePersonInCharge")
+    @set:PropertyName("namePersonInCharge")
+    var namePersonInCharge: String = "",
+
+    @get:PropertyName("password")
+    @set:PropertyName("password")
+    var password: String = "",
+
+    @get:PropertyName("start")
+    @set:PropertyName("start")
+    var start: String = "",
+
+    @get:PropertyName("state")
+    @set:PropertyName("state")
+    var state: String = "",
+
+    @get:PropertyName("student")
+    @set:PropertyName("student")
+    var student: String = "",
+
+    @get:PropertyName("tareas")
+    @set:PropertyName("tareas")
+    var tareas: ArrayList<Repuesto> = ArrayList(),
+
+    @get:PropertyName("machineCode")
+    @set:PropertyName("machineCode")
     var machineCode: Machine? = null,
-    val namePersonInCharge: String = "",
-    val password: String = "",
-    val start: String = "",
-    val tareas: Task ?= null,
+
+
 
     ) {
-    fun toJson(): String = Gson().toJson(
-        Preventiv(
-            id,
-            accessCode,
-            color,
-            end,
-            Machine(
-                current = machineCode?.current ?: "",
-                department = machineCode?.current ?: "",
-                feedMotorPower = machineCode?.current ?: "",
-                id = machineCode?.current ?: "",
-                if (!machineCode?.image.isNullOrBlank())
-                    URLEncoder.encode(machineCode?.image, StandardCharsets.UTF_8.toString())
-                else "",
-                location = machineCode?.current ?: "",
-                machineCode = machineCode?.machineCode ?: 0,
-                mainMotorPower = machineCode?.mainMotorPower ?: 0,
-                maximumLongitudinalFeed = machineCode?.maximumLongitudinalFeed ?: 0,
-                maximumSpeed = machineCode?.maximumSpeed ?: 0,
-                maximumTransversalFeed = machineCode?.maximumTransversalFeed ?: 0,
-                maximumVerticalFeed = machineCode?.maximumVerticalFeed ?: 0,
-                minimumLongitudinalFeed = machineCode?.minimumLongitudinalFeed ?: 0,
-                minimumSpeed = machineCode?.minimumSpeed ?: 0,
-                minimumTransversalFeed = machineCode?.minimumTransversalFeed ?: 0,
-                minimumVerticalFeed = machineCode?.minimumVerticalFeed ?: 0,
-                numberOfLongitudinalFeeds = machineCode?.numberOfLongitudinalFeeds ?: 0,
-                numberOfSpeeds = machineCode?.numberOfSpeeds ?: 0,
-                numberOfTransversalFeeds = machineCode?.numberOfTransversalFeeds ?: 0,
-                numberOfVerticalFeeds = machineCode?.numberOfVerticalFeeds ?: 0,
-                pumpMotorPower = machineCode?.pumpMotorPower ?: 0,
-                type = machineCode?.type ?: "",
-            ),
-            namePersonInCharge,
-            password,
-            start,
-            Task(
-                category = tareas?.category?:"",
-                end = tareas?.end?:"",
-                lastDate = tareas?.lastDate?:"",
-                nameTarea = tareas?.nameTarea?:"",
-                selectedFrecunce = tareas?.selectedFrecunce?:"",
-                start = tareas?.start?:"",
-                state = tareas?.state?:"",
-                datos = tareas?.datos?:ArrayList(),
-                repuestos = tareas?.repuestos?: ArrayList(),
-            )
+    @get:Exclude
+    @set:Exclude
+    @Transient
+    lateinit var documentReference: DocumentReference
 
-        )
-    )
     companion object {
-        fun fromJson(data: String): Preventiv = Gson().fromJson(data, Preventiv::class.java)
+        fun fromSnapshot(snapshot: DocumentSnapshot): Preventiv {
+            val preventiv = snapshot.toObject<Preventiv>()!!
+            preventiv.documentReference = snapshot.reference
+            return preventiv
+        }
     }
 }
