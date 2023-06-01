@@ -1,7 +1,6 @@
 package com.optic.app_movil_tfc.presentation.screen.access.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -9,23 +8,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.optic.app_movil_tfc.R
 import com.optic.app_movil_tfc.presentation.navigation.AppScreen
 import com.optic.app_movil_tfc.presentation.screen.access.AccessViewModel
+import androidx.compose.material.*
+import androidx.compose.ui.graphics.Color
 
 
 @Composable
@@ -42,7 +36,8 @@ fun AccessContent(
             Logo()
             AccessCodeTextFiel(viewModel)
             PasswordTexteField(viewModel)
-            AccessButtom(navController)
+            ErrorMnsg(viewModel)
+            AccessButtom(viewModel,navController)
         }
     }
 
@@ -57,13 +52,12 @@ fun Logo(){
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccessCodeTextFiel(viewModel: AccessViewModel){
     OutlinedTextField(
         modifier = Modifier.padding(top=30.dp),
-        value = viewModel.email.value,
-        onValueChange = {viewModel.email.value = it },
+        value = viewModel.accessCode.value,
+        onValueChange = {viewModel.accessCode.value = it },
         label = {
             Text(text = " Código de Acceso")
         },
@@ -73,7 +67,6 @@ fun AccessCodeTextFiel(viewModel: AccessViewModel){
         }
         )
 }
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordTexteField(viewModel: AccessViewModel){
     OutlinedTextField(
@@ -92,7 +85,9 @@ fun PasswordTexteField(viewModel: AccessViewModel){
 }
 
 @Composable
-fun AccessButtom(navController : NavHostController){
+fun AccessButtom(
+    viewModel: AccessViewModel,
+    navController : NavHostController){
 
     Button(
         modifier = Modifier.padding(
@@ -100,9 +95,22 @@ fun AccessButtom(navController : NavHostController){
             start = 30.dp
         ),
         onClick = {
-                  navController.navigate(route = AppScreen.Tasks.rute)
+            viewModel.navegacion(navController)
         },
     ) {
         Text(text = "Aceptar")
     }
+}
+
+@Composable
+fun ErrorMnsg(viewModel: AccessViewModel){
+
+    if(viewModel.errorVisible.value){
+        Text(
+            text = "Código de acceso o contraseña incorrecta",
+            color = Color.Red,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+
 }

@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.optic.app_movil_tfc.presentation.screen.access.AccessScreen
-import com.optic.app_movil_tfc.presentation.screen.task.TaskScreen
+import com.optic.app_movil_tfc.presentation.screen.preventiv.TaskScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController){
