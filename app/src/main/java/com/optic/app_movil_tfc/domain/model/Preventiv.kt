@@ -1,5 +1,6 @@
 package com.optic.app_movil_tfc.domain.model
 
+import Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
@@ -10,8 +11,8 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 data class Preventiv(
-    @get:PropertyName("id")
-    @set:PropertyName("id")
+   // @get:PropertyName("id")
+  //  @set:PropertyName("id")
     var id: String = "",
 
     @get:PropertyName("accessCode")
@@ -48,7 +49,7 @@ data class Preventiv(
 
     @get:PropertyName("tareas")
     @set:PropertyName("tareas")
-    var tareas: ArrayList<Repuesto> = ArrayList(),
+    var tareas: ArrayList<Task> = ArrayList(),
 
     @get:PropertyName("machineCode")
     @set:PropertyName("machineCode")

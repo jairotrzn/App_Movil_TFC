@@ -29,7 +29,7 @@ data class Task(
     var state: String = "",
     @get:PropertyName("datos")
     @set:PropertyName("datos")
-    var datos: ArrayList<String> = ArrayList(),
+    var datos: ArrayList<HashMap<String,String>> = ArrayList(),
     @get:PropertyName("repuestos")
     @set:PropertyName("repuestos")
     var repuestos: ArrayList<Repuesto> = ArrayList()
