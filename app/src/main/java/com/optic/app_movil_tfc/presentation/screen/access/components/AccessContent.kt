@@ -95,7 +95,7 @@ fun AccessButtom(
             start = 30.dp
         ),
         onClick = {
-            viewModel.navegacion(navController)
+            viewModel.confirmAccess(navController)
         },
     ) {
         Text(text = "Aceptar")

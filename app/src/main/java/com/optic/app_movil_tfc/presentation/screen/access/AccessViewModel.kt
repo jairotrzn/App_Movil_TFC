@@ -26,17 +26,28 @@ class AccessViewModel @Inject constructor(
     var preventivResponse by mutableStateOf<Response<Preventiv>?>(null)
     var preventivData: Preventiv? = null
 
+
     init {
         getPreventivByAccessCode()
     }
 
+    fun confirmAccess(navController: NavHostController){
+        getPreventivByAccessCode()
+      if(comparePassword()){
+          navegacion(navController)
+      }else{
+          errorVisible.value = true
+      }
+    }
     fun getPreventivByAccessCode() = viewModelScope.launch {
         preventivResponse = Response.Loading
-        preventivUseCase.getPreventiv("09e179").collect { response ->
+        preventivUseCase.getPreventiv(accessCode.value).collect { response ->
             preventivResponse = response
 
             if (response is Response.Success) {
                 preventivData = response.data
+
+
             }
         }
     }
@@ -45,14 +56,11 @@ class AccessViewModel @Inject constructor(
         return password.value == preventivData?.password
     }
 
-        fun navegacion(navController: NavHostController, preventiv: Preventiv) {
-            if(comparePassword()){
+        fun navegacion(navController: NavHostController) {
                 navController.navigate(route = AppScreen.Tasks.rute)
-            }else{
-                errorVisible.value = true
-            }
-
         }
 
     }
+
+
 
