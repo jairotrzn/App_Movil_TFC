@@ -18,7 +18,6 @@ import java.io.File
 
 class PreventivRepositoryImpl @Inject constructor(
     @Named(PREVENTIV) private val providePreventivRef : CollectionReference,
-    @Named(MACHINES) private val provideMachineRef : CollectionReference,
 ): PreventivRepository{
 
     override fun getPreventiv(accessCode: String): Flow<Response<Preventiv>> = callbackFlow {

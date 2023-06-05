@@ -5,7 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.optic.app_movil_tfc.presentation.screen.access.AccessScreen
-import com.optic.app_movil_tfc.presentation.screen.preventiv.TaskScreen
+import com.optic.app_movil_tfc.presentation.screen.preventiv.PreventivScreen
+import com.optic.app_movil_tfc.presentation.screen.preventiv.PreventivViewModel
 
 @Composable
 fun AppNavigation(navController: NavHostController){
@@ -19,7 +20,7 @@ fun AppNavigation(navController: NavHostController){
         composable(
             route = AppScreen.Tasks.rute
         ){
-            TaskScreen(navController)
+            PreventivScreen()
         }
     }
 }

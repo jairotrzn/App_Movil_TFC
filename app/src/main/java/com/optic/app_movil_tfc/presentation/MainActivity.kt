@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.optic.app_movil_tfc.presentation.navigation.AppNavigation
+import com.optic.app_movil_tfc.presentation.screen.preventiv.PreventivViewModel
 import com.optic.app_movil_tfc.ui.theme.App_Movil_TFCTheme
 import dagger.hilt.android.AndroidEntryPoint
 

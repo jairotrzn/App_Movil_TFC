@@ -14,6 +14,10 @@ fun AccessScreen(navController:NavHostController) {
         content = {
             AccessContent(navController)
         },
-        bottomBar = {}
+        bottomBar = {
+
+        }
     )
+
+
 }
