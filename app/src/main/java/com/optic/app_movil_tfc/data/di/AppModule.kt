@@ -10,6 +10,7 @@ import com.optic.app_movil_tfc.data.repository.PreventivRepositoryImpl
 import com.optic.app_movil_tfc.domain.repository.PreventivRepository
 import com.optic.app_movil_tfc.domain.use_case.preventiv.GetPreventiv
 import com.optic.app_movil_tfc.domain.use_case.preventiv.PreventivUseCase
+import com.optic.app_movil_tfc.domain.use_case.preventiv.UpDataPreventiv
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,7 +35,8 @@ object AppModule{
 
     @Provides
     fun providePreventivsUseCase(repository: PreventivRepository) = PreventivUseCase(
-        getPreventiv = GetPreventiv(repository)
+        getPreventiv = GetPreventiv(repository),
+        updatePreventiv = UpDataPreventiv(repository)
     )
 
     @Provides
