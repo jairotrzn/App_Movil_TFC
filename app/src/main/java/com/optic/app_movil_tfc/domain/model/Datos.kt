@@ -8,20 +8,9 @@ import com.google.firebase.firestore.ktx.toObject
 
 data class Datos(
 
-    @get:PropertyName("department")
-    @set:PropertyName("department")
     var department: String = "",
-
-    @get:PropertyName("id")
-    @set:PropertyName("id")
     var id: String = "",
-
-    @get:PropertyName("location")
-    @set:PropertyName("location")
     var location: String = "",
-
-    @get:PropertyName("machineCode")
-    @set:PropertyName("machineCode")
     var machineCode: String  = "",
 
     ) {

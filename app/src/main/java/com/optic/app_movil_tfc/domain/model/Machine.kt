@@ -11,8 +11,7 @@ import java.nio.charset.StandardCharsets
 
 data class Machine(
 
-    @get:PropertyName("department")
-    @set:PropertyName("department")
+
     var department: String = "",
 
     @get:PropertyName("id")

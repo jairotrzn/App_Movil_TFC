@@ -13,12 +13,13 @@ import com.optic.gamermvvmapp.domain.model.Response
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import java.io.File
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 
 
 class PreventivRepositoryImpl @Inject constructor(
-    @Named(PREVENTIV) private val providePreventivRef : CollectionReference,
-): PreventivRepository{
+    @Named(PREVENTIV) private val providePreventivRef: CollectionReference,
+) : PreventivRepository {
 
     override fun getPreventiv(accessCode: String): Flow<Response<Preventiv>> = callbackFlow {
         val query = providePreventivRef.whereEqualTo("accessCode", accessCode)
@@ -38,7 +39,23 @@ class PreventivRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun update(preventiv: Preventiv, file: File?): Response<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun updatePreventiv(preventiv: Preventiv): Flow<Response<Boolean>> = flow {
+        try {
+            val map: MutableMap<String,Any> = HashMap()
+            map["accessCode"] = preventiv.accessCode
+            map["color"] = preventiv.color
+            map["namePersonInCharge"] = preventiv.namePersonInCharge
+            map["password"] = preventiv.password
+            map["start"] = preventiv.start
+            map["state"] = preventiv.state
+            map["student"] = preventiv.student
+            map["tareas"] = preventiv.tareas
+
+            providePreventivRef.document(preventiv.id).update(map).await()
+            emit(Response.Success(true))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(Response.Failure(e))
+        }
     }
 }

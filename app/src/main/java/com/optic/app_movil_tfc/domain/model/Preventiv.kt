@@ -11,48 +11,17 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 data class Preventiv(
-   // @get:PropertyName("id")
-  //  @set:PropertyName("id")
+
     var id: String = "",
-
-    @get:PropertyName("accessCode")
-    @set:PropertyName("accessCode")
     var accessCode: String = "",
-
-    @get:PropertyName("color")
-    @set:PropertyName("color")
     var color: String = "",
-
-    @get:PropertyName("end")
-    @set:PropertyName("end")
     var end: String = "",
-
-    @get:PropertyName("namePersonInCharge")
-    @set:PropertyName("namePersonInCharge")
     var namePersonInCharge: String = "",
-
-    @get:PropertyName("password")
-    @set:PropertyName("password")
     var password: String = "",
-
-    @get:PropertyName("start")
-    @set:PropertyName("start")
     var start: String = "",
-
-    @get:PropertyName("state")
-    @set:PropertyName("state")
     var state: String = "",
-
-    @get:PropertyName("student")
-    @set:PropertyName("student")
     var student: String = "",
-
-    @get:PropertyName("tareas")
-    @set:PropertyName("tareas")
     var tareas: ArrayList<Task> = ArrayList(),
-
-    @get:PropertyName("machineCode")
-    @set:PropertyName("machineCode")
     var machineCode: Machine? = null,
 
 
