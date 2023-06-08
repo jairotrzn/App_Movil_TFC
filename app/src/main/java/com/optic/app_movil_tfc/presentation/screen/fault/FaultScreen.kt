@@ -1,6 +1,5 @@
-package com.optic.app_movil_tfc.presentation.screen.preventiv
+package com.optic.app_movil_tfc.presentation.screen.fault
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,35 +15,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.optic.app_movil_tfc.presentation.screen.preventiv.components.GetPreventiv
-import com.optic.app_movil_tfc.presentation.screen.preventiv.components.PreventivContent
+import com.optic.app_movil_tfc.presentation.screen.fault.components.GetFault
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PreventivScreen(
-    viewModel: PreventivViewModel = hiltViewModel(),
-    accessCode :String,
-
+fun FaultScreen (
+    viewModel: FaultViewModel = hiltViewModel(),
+    acessCode: String
 ){
     Scaffold(
         topBar = {},
         content = {
-            GetPreventiv()
+                  GetFault()
         },
-        bottomBar = {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                CustomFloatingActionButton(
-                    onClick = {viewModel.upDatePreventiv()}
-                )
-            }
+        bottomBar = {  Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            com.optic.app_movil_tfc.presentation.screen.preventiv.CustomFloatingActionButton(
+                onClick = {viewModel.updateFault()}
+            )
+        }
         }
     )
 
-}
 
+}
 @Composable
 fun CustomFloatingActionButton(
     onClick: () -> Unit
@@ -62,3 +57,4 @@ fun CustomFloatingActionButton(
         )
     }
 }
+

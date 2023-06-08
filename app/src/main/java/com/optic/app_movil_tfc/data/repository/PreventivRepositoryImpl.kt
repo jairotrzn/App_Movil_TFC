@@ -1,9 +1,6 @@
 package com.optic.app_movil_tfc.data.repository
 
-import android.util.Log
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.optic.app_movil_tfc.core.Constants.MACHINES
 import javax.inject.Inject
 import javax.inject.Named
 import com.optic.app_movil_tfc.core.Constants.PREVENTIV

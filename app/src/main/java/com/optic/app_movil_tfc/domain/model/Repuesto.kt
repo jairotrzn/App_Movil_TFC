@@ -4,34 +4,24 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ktx.toObject
+import com.google.gson.Gson
 
 data class Repuesto(
-    @get:PropertyName("idRepuesto")
-    @set:PropertyName("idRepuesto")
+    var id:String ="",
     var idRepuesto: String = "",
-
-    @get:PropertyName("name")
-    @set:PropertyName("name")
     var name: String = "",
-
-    @get:PropertyName("price")
-    @set:PropertyName("price")
     var price: String = "",
-
-    @get:PropertyName("supplier")
-    @set:PropertyName("supplier")
     var supplier: String = "",
 ){
-    @get:Exclude
-    @set:Exclude
-    @Transient
-    lateinit var documentReference: DocumentReference
 
+    fun toJson():String = Gson().toJson(Repuesto(
+        id,
+        idRepuesto,
+        name,
+        price,
+        supplier
+    ))
     companion object {
-        fun fromSnapshot(snapshot: DocumentSnapshot): Repuesto {
-            val repuesto = snapshot.toObject<Repuesto>()!!
-            repuesto.documentReference = snapshot.reference
-            return repuesto
-        }
+        fun  fromJson(data: String): Repuesto = Gson().fromJson(data, Repuesto::class.java)
     }
 }

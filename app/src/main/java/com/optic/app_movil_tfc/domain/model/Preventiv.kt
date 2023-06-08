@@ -21,22 +21,30 @@ data class Preventiv(
     var start: String = "",
     var state: String = "",
     var student: String = "",
-    var tareas: ArrayList<Task> = ArrayList(),
     var machineCode: Machine? = null,
-
-
+    var tareas: ArrayList<Task> = ArrayList(),
+    var name:String = "",
 
     ) {
-    @get:Exclude
-    @set:Exclude
-    @Transient
-    lateinit var documentReference: DocumentReference
+
+    fun toJson(): String = Gson().toJson(
+        Preventiv(
+            id,
+            accessCode,
+            color,
+            end,
+            namePersonInCharge,
+            password,
+            start,
+            state,
+            student,
+            machineCode,
+            tareas,
+            name
+        )
+    )
 
     companion object {
-        fun fromSnapshot(snapshot: DocumentSnapshot): Preventiv {
-            val preventiv = snapshot.toObject<Preventiv>()!!
-            preventiv.documentReference = snapshot.reference
-            return preventiv
-        }
+        fun fromJson(data: String): Preventiv = Gson().fromJson(data, Preventiv::class.java)
     }
 }

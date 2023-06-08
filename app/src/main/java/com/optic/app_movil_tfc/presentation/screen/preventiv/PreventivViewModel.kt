@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.optic.app_movil_tfc.domain.model.Preventiv
@@ -20,20 +21,22 @@ import javax.inject.Inject
 @HiltViewModel
 class PreventivViewModel @Inject constructor(
     private val preventivUseCase: PreventivUseCase,
-    // private val accessCode :String
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     var preventivData: Preventiv? = null
     var preventivResponse by mutableStateOf<Response<Preventiv>?>(null)
     var updatePreventivResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
+    var accessCode = savedStateHandle.get<String>("accessCode")
 
     init {
+
         getPreventivByAccessCode()
     }
 
     private fun getPreventivByAccessCode() = viewModelScope.launch {
         preventivResponse = Response.Loading
-        preventivUseCase.getPreventiv("d66036").collect { response ->
+        preventivUseCase.getPreventiv(accessCode.toString()).collect { response ->
             preventivResponse = response
 
         }
@@ -53,8 +56,8 @@ class PreventivViewModel @Inject constructor(
             tareas = ArrayList(preventivData!!.tareas.map { tarea ->
                 tarea.copy(
                     lastDate = getCurrentDate(),
-                    start = calculateNextDate(tarea.selectedFrecunce, getCurrentDate()),
-                    end = getCurrentDate(),
+                    start = calculateNextDate(tarea.selectedFrencunce, getCurrentDate()),
+                    end = calculateNextDate(tarea.selectedFrencunce, getCurrentDate()),
                     state = "Finalizada"
                 )
             })
@@ -77,14 +80,13 @@ class PreventivViewModel @Inject constructor(
 
     fun getCurrentDate(): String {
         val date = Date()
-        val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return format.format(date)
     }
 
     fun calculateNextDate(frecuencia: String, currentDate: String): String {
-        println("Voy a calcular la próxima fecha de $currentDate que tiene una frecuencia de $frecuencia" )
-        val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val date = dateFormat.parse(currentDate) ?: return currentDate
 
         val calendar = Calendar.getInstance()
@@ -99,7 +101,6 @@ class PreventivViewModel @Inject constructor(
         }
 
         val nextDate = calendar.time
-        println("La fecha que he obtenido es ${format.format(nextDate)}")
         return format.format(nextDate)
     }
 
