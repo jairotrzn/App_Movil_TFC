@@ -17,8 +17,7 @@ fun GetPreventiv(
             CircularProgressIndicator()
         }
         is Response.Success -> {
-            PreventivContent(response.data!!)
-            viewModel.preventivData = response.data!!
+            PreventivContent(preventiv = response.data!!)
         }
         is Response.Failure->{
             Toast.makeText(LocalContext.current,"No se ha podido recuperar el preventivo",Toast.LENGTH_LONG).show()
