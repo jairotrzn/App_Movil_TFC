@@ -8,6 +8,5 @@ import java.io.File
 interface PreventivRepository {
 
     fun getPreventiv(accessCode : String): Flow<Response<Preventiv>>
-
-    suspend fun update(preventiv: Preventiv, file: File?): Response<Boolean>
+    suspend  fun updatePreventiv(preventiv: Preventiv): Flow<Response<Boolean>>
 }

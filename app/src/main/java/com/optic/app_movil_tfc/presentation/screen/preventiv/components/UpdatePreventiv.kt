@@ -9,19 +9,19 @@ import com.optic.app_movil_tfc.presentation.screen.preventiv.PreventivViewModel
 import com.optic.gamermvvmapp.domain.model.Response
 
 @Composable
-fun GetPreventiv(
+fun UpDataPreventiv(
     viewModel: PreventivViewModel = hiltViewModel()
 ){
-    when (val response = viewModel.preventivResponse){
+    when (val response = viewModel.updatePreventivResponse){
         Response.Loading -> {
             CircularProgressIndicator()
         }
         is Response.Success -> {
-            PreventivContent(preventiv = response.data!!)
+            Toast.makeText(LocalContext.current,"Preventivo finalizado", Toast.LENGTH_LONG).show()
+
         }
         is Response.Failure->{
-            Toast.makeText(LocalContext.current,"No se ha podido recuperar el preventivo",Toast.LENGTH_LONG).show()
+            Toast.makeText(LocalContext.current,"No se ha podido modificar", Toast.LENGTH_LONG).show()
         }
     }
 }
-

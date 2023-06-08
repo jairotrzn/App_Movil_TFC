@@ -5,6 +5,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.optic.app_movil_tfc.presentation.screen.access.components.AccessContent
+import com.optic.app_movil_tfc.presentation.screen.access.components.GetAccess
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -14,10 +15,8 @@ fun AccessScreen(navController:NavHostController) {
         content = {
             AccessContent(navController)
         },
-        bottomBar = {
-
-        }
+        bottomBar = {}
     )
 
-
+    GetAccess(navHostController = navController)
 }

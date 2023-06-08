@@ -11,63 +11,40 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 data class Preventiv(
-   // @get:PropertyName("id")
-  //  @set:PropertyName("id")
+
     var id: String = "",
-
-    @get:PropertyName("accessCode")
-    @set:PropertyName("accessCode")
     var accessCode: String = "",
-
-    @get:PropertyName("color")
-    @set:PropertyName("color")
     var color: String = "",
-
-    @get:PropertyName("end")
-    @set:PropertyName("end")
     var end: String = "",
-
-    @get:PropertyName("namePersonInCharge")
-    @set:PropertyName("namePersonInCharge")
     var namePersonInCharge: String = "",
-
-    @get:PropertyName("password")
-    @set:PropertyName("password")
     var password: String = "",
-
-    @get:PropertyName("start")
-    @set:PropertyName("start")
     var start: String = "",
-
-    @get:PropertyName("state")
-    @set:PropertyName("state")
     var state: String = "",
-
-    @get:PropertyName("student")
-    @set:PropertyName("student")
     var student: String = "",
-
-    @get:PropertyName("tareas")
-    @set:PropertyName("tareas")
-    var tareas: ArrayList<Task> = ArrayList(),
-
-    @get:PropertyName("machineCode")
-    @set:PropertyName("machineCode")
     var machineCode: Machine? = null,
-
-
+    var tareas: ArrayList<Task> = ArrayList(),
+    var name:String = "",
 
     ) {
-    @get:Exclude
-    @set:Exclude
-    @Transient
-    lateinit var documentReference: DocumentReference
+
+    fun toJson(): String = Gson().toJson(
+        Preventiv(
+            id,
+            accessCode,
+            color,
+            end,
+            namePersonInCharge,
+            password,
+            start,
+            state,
+            student,
+            machineCode,
+            tareas,
+            name
+        )
+    )
 
     companion object {
-        fun fromSnapshot(snapshot: DocumentSnapshot): Preventiv {
-            val preventiv = snapshot.toObject<Preventiv>()!!
-            preventiv.documentReference = snapshot.reference
-            return preventiv
-        }
+        fun fromJson(data: String): Preventiv = Gson().fromJson(data, Preventiv::class.java)
     }
 }

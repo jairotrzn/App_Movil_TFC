@@ -16,10 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.optic.app_movil_tfc.R
-import com.optic.app_movil_tfc.presentation.navigation.AppScreen
 import com.optic.app_movil_tfc.presentation.screen.access.AccessViewModel
 import androidx.compose.material.*
 import androidx.compose.ui.graphics.Color
+import com.optic.app_movil_tfc.presentation.screen.fault.components.GetFault
 
 
 @Composable
@@ -88,14 +88,13 @@ fun PasswordTexteField(viewModel: AccessViewModel){
 fun AccessButtom(
     viewModel: AccessViewModel,
     navController : NavHostController){
-
     Button(
         modifier = Modifier.padding(
             top=10.dp,
             start = 30.dp
         ),
         onClick = {
-            viewModel.confirmAccess(navController)
+                  viewModel.getPreventivByAccessCode()
         },
     ) {
         Text(text = "Aceptar")

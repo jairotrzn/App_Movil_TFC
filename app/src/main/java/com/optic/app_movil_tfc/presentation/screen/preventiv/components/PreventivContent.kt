@@ -94,7 +94,7 @@ fun CardList(preventiv: Preventiv) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
 
-                        text = Task.nameTarea,
+                        text = Task.name,
                         style = MaterialTheme.typography.h5,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.End
