@@ -11,12 +11,12 @@ import com.optic.app_movil_tfc.data.repository.FaultRepositoryImpl
 import com.optic.app_movil_tfc.data.repository.PreventivRepositoryImpl
 import com.optic.app_movil_tfc.domain.repository.FaultRepository
 import com.optic.app_movil_tfc.domain.repository.PreventivRepository
-import com.optic.app_movil_tfc.domain.repository.UpdateFault
 import com.optic.app_movil_tfc.domain.use_case.fault.FaultUseCase
 import com.optic.app_movil_tfc.domain.use_case.fault.GetFault
+import com.optic.app_movil_tfc.domain.use_case.fault.UpdateFault
 import com.optic.app_movil_tfc.domain.use_case.preventiv.GetPreventiv
 import com.optic.app_movil_tfc.domain.use_case.preventiv.PreventivUseCase
-import com.optic.app_movil_tfc.domain.use_case.preventiv.UpDataPreventiv
+import com.optic.app_movil_tfc.domain.use_case.preventiv.UpDatePreventiv
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,11 +41,11 @@ object AppModule{
 
     @Provides
     @Named(FAULTS)
-    fun provideFaultRef(db: FirebaseFirestore): CollectionReference = db.collection(MACHINES)
+    fun provideFaultRef(db: FirebaseFirestore): CollectionReference = db.collection(FAULTS)
     @Provides
     fun providePreventivsUseCase(repository: PreventivRepository) = PreventivUseCase(
         getPreventiv = GetPreventiv(repository),
-        updatePreventiv = UpDataPreventiv(repository)
+        updatePreventiv = UpDatePreventiv(repository)
     )
 
     @Provides
