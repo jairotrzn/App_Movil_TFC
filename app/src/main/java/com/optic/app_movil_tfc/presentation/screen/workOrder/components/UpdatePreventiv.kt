@@ -1,23 +1,23 @@
-package com.optic.app_movil_tfc.presentation.screen.preventiv.components
+package com.optic.app_movil_tfc.presentation.screen.workOrder.components
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.material.CircularProgressIndicator
-import com.optic.app_movil_tfc.presentation.screen.preventiv.PreventivViewModel
+import com.optic.app_movil_tfc.presentation.screen.workOrder.WorkOrderViewModel
 import com.optic.gamermvvmapp.domain.model.Response
 
 @Composable
-fun UpDataPreventiv(
-    viewModel: PreventivViewModel = hiltViewModel()
+fun UpdatePreventiv(
+    viewModel: WorkOrderViewModel = hiltViewModel()
 ){
     when (val response = viewModel.updatePreventivResponse){
         Response.Loading -> {
             CircularProgressIndicator()
         }
         is Response.Success -> {
-            Toast.makeText(LocalContext.current,"Preventivo finalizado", Toast.LENGTH_LONG).show()
+            Toast.makeText(LocalContext.current,"Preventivo finalizado y actualizado", Toast.LENGTH_LONG).show()
 
         }
         is Response.Failure->{

@@ -20,14 +20,12 @@ fun GetAccess(
         }
         is Response.Success -> {
 
-            if (viewModel.comparePassword(response.data!!.password)){
-                navHostController.navigate("preventivs/${response.data!!.accessCode}")
-            }else{
-                viewModel.errorVisible.value = true
-            }
+            Toast.makeText(LocalContext.current,"Estoy comprobando el estado de e get Acess ", Toast.LENGTH_LONG).show()
+            //navController.navigate("preventivs/${viewModel.accessCode.value}")
+
         }
         is Response.Failure->{
-            Toast.makeText(LocalContext.current,"No se ha podido acceder ", Toast.LENGTH_LONG).show()
+            Toast.makeText(LocalContext.current,"No se ha podido acceder no hay datos", Toast.LENGTH_LONG).show()
         }
     }
 }
