@@ -1,5 +1,6 @@
 package com.optic.app_movil_tfc.data.repository
 
+import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import com.optic.app_movil_tfc.domain.model.Fault
 import com.optic.app_movil_tfc.domain.repository.FaultRepository
@@ -18,6 +19,7 @@ class FaultRepositoryImpl @Inject constructor(
     @Named(FAULTS) private val provideFaultRef:CollectionReference
 ): FaultRepository {
     override fun getFault(accessCode: String): Flow<Response<Fault>> = callbackFlow{
+       Log.d("reposotorio",accessCode)
         val query = provideFaultRef.whereEqualTo("accessCode",accessCode)
         val snapshotListener = query.addSnapshotListener{ snapshot , e ->
             val faultResponse = if (snapshot != null && !snapshot.isEmpty){
@@ -35,17 +37,16 @@ class FaultRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateFault(fault: Fault): Flow<Response<Boolean>> = flow {
-            try {
+    override suspend fun updateFault(fault: Fault): Response<Boolean> {
+           return try {
                 val map: MutableMap<String,Any> = HashMap()
-                map["state"] = "Finalizado"
-                map["solution"] = fault.state
-
+                map["solution"] = fault.solution
+                map["finish"] = fault.finish
                 provideFaultRef.document(fault.id).update(map).await()
-                emit(Response.Success(true))
+                Response.Success(true)
             }catch (e: Exception){
                 e.printStackTrace()
-                emit(Response.Failure(e))
+                Response.Failure(e)
             }
     }
 

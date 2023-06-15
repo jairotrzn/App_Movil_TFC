@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,14 +17,11 @@ import androidx.navigation.NavHostController
 import com.optic.app_movil_tfc.R
 import com.optic.app_movil_tfc.presentation.screen.access.AccessViewModel
 import androidx.compose.material.*
-import androidx.compose.ui.graphics.Color
-import com.optic.app_movil_tfc.presentation.screen.fault.components.GetFault
-
 
 @Composable
 fun AccessContent(
     navController: NavHostController,
-    viewModel: AccessViewModel = hiltViewModel()){
+    viewModel: AccessViewModel = hiltViewModel() ){
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -34,9 +30,7 @@ fun AccessContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Logo()
-            AccessCodeTextFiel(viewModel)
-            PasswordTexteField(viewModel)
-            ErrorMnsg(viewModel)
+            AccessCodeTextField(viewModel)
             AccessButtom(viewModel,navController)
         }
     }
@@ -53,34 +47,19 @@ fun Logo(){
 }
 
 @Composable
-fun AccessCodeTextFiel(viewModel: AccessViewModel){
-    OutlinedTextField(
-        modifier = Modifier.padding(top=30.dp),
-        value = viewModel.accessCode.value,
-        onValueChange = {viewModel.accessCode.value = it },
-        label = {
-            Text(text = " Código de Acceso")
-        },
+fun AccessCodeTextField(viewModel: AccessViewModel) {
+    TextField(
+        modifier = Modifier.padding(top = 30.dp),
+        value = viewModel.state.accessCode,
+        onValueChange = { viewModel.accessCodeChange(it)},
+        label = { Text(text = "Código de Acceso") },
+        singleLine = true,
         leadingIcon = {
-            Icon(imageVector = Icons.Default.Check,
-                contentDescription = "")
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = ""
+            )
         }
-        )
-}
-@Composable
-fun PasswordTexteField(viewModel: AccessViewModel){
-    OutlinedTextField(
-
-        modifier = Modifier.padding(20.dp),
-        value = viewModel.password.value,
-        onValueChange = {viewModel.password.value = it},
-        label = {
-            Text(text = "Password")
-        },
-        leadingIcon = {
-            Icon(imageVector = Icons.Default.Lock, contentDescription ="" )
-        },
-
     )
 }
 
@@ -94,22 +73,11 @@ fun AccessButtom(
             start = 30.dp
         ),
         onClick = {
-                  viewModel.getPreventivByAccessCode()
+
+            navController.navigate("preventivs/${viewModel.state.accessCode}")
         },
     ) {
         Text(text = "Aceptar")
     }
 }
 
-@Composable
-fun ErrorMnsg(viewModel: AccessViewModel){
-
-    if(viewModel.errorVisible.value){
-        Text(
-            text = "Código de acceso o contraseña incorrecta",
-            color = Color.Red,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-    }
-
-}

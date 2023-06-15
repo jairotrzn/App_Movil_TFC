@@ -29,7 +29,8 @@ data class Machine(
     var numberOfTransversalFeeds: Int = 0,
     var numberOfVerticalFeeds: Int = 0,
     var pumpMotorPower: Int = 0,
-    var type: String = "",    var minimumVerticalFeed: Int = 0,
+    var type: String = "",
+    var minimumVerticalFeed: Int = 0,
     var maximumVerticalFeed: Int = 0,
 
 

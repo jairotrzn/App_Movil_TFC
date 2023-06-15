@@ -5,18 +5,19 @@ import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ktx.toObject
 import com.google.gson.Gson
 import com.optic.app_movil_tfc.domain.model.Repuesto
+import java.util.Date
 
 data class Task(
     var id: String = "",
     var category: String = "",
     var color: String = "",
     var datos: ArrayList<String> = ArrayList(),
-    var end: String = "",
+    var end: Date? = Date(),
     var lastDate: String = "",
     var name: String = "",
     var repuestos: ArrayList<Repuesto> = ArrayList(),
     var selectedFrencunce: String = "",
-    var start: String = "",
+    var start: Date? = Date(),
     var state: String = "",
 
 

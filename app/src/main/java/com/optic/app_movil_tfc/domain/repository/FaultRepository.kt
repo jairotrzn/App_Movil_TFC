@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface FaultRepository {
     fun getFault(accessCode:String): Flow<Response<Fault>>
-    suspend fun updateFault(fault: Fault):Flow<Response<Boolean>>
+    suspend fun updateFault(fault: Fault): Response<Boolean>
 
 }

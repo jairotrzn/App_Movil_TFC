@@ -1,5 +1,6 @@
 package com.optic.app_movil_tfc.data.repository
 
+import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import javax.inject.Inject
 import javax.inject.Named
@@ -36,23 +37,16 @@ class PreventivRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updatePreventiv(preventiv: Preventiv): Flow<Response<Boolean>> = flow {
-        try {
-            val map: MutableMap<String,Any> = HashMap()
-            map["accessCode"] = preventiv.accessCode
-            map["color"] = preventiv.color
-            map["namePersonInCharge"] = preventiv.namePersonInCharge
-            map["password"] = preventiv.password
-            map["start"] = preventiv.start
-            map["state"] = preventiv.state
-            map["student"] = preventiv.student
-            map["tareas"] = preventiv.tareas
-
+    override suspend fun updatePreventiv(preventiv: Preventiv): Response<Boolean> {
+        return try {
+            val map: MutableMap<String, Any> = HashMap()
+            map["finish"] = true
             providePreventivRef.document(preventiv.id).update(map).await()
-            emit(Response.Success(true))
+            Response.Success(true)
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(Response.Failure(e))
+            Response.Failure(e)
         }
     }
+
 }

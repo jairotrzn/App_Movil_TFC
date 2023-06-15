@@ -1,7 +1,5 @@
-package com.optic.app_movil_tfc.presentation.screen.fault
+package com.optic.app_movil_tfc.presentation.screen.workOrder
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.FloatingActionButton
@@ -10,40 +8,38 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.optic.app_movil_tfc.presentation.screen.fault.components.GetFault
+import com.optic.app_movil_tfc.presentation.screen.workOrder.components.GetFault
+import com.optic.app_movil_tfc.presentation.screen.workOrder.components.GetPreventiv
+import com.optic.app_movil_tfc.presentation.screen.workOrder.components.PreventivContent
+import com.optic.app_movil_tfc.presentation.screen.workOrder.components.UpdateFault
+import com.optic.app_movil_tfc.presentation.screen.workOrder.components.UpdatePreventiv
+
 
 @Composable
-fun FaultScreen (
-    viewModel: FaultViewModel = hiltViewModel(),
-    acessCode: String
-){
+fun PreventivScreen(
+    viewModel: WorkOrderViewModel = hiltViewModel(),
+    accessCode: String,
+    ) {
     Scaffold(
         topBar = {},
         content = {
-                  GetFault()
+                  PreventivContent()
         },
-        bottomBar = {  Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
-            com.optic.app_movil_tfc.presentation.screen.preventiv.CustomFloatingActionButton(
-                onClick = {viewModel.updateFault()}
-            )
-        }
-        }
+        bottomBar = {}
+
     )
-
-
+    GetPreventiv()
+    GetFault()
+    UpdatePreventiv()
+    UpdateFault()
 }
+
 @Composable
-fun CustomFloatingActionButton(
-    onClick: () -> Unit
-) {
+fun BottomButton(onClick: () -> Unit) {
     FloatingActionButton(
         onClick = onClick,
         backgroundColor = Color(0xFF64B5F6), // Color azul claro
@@ -57,4 +53,3 @@ fun CustomFloatingActionButton(
         )
     }
 }
-
