@@ -32,12 +32,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.optic.app_movil_tfc.domain.model.Fault
 import com.optic.app_movil_tfc.domain.model.Preventiv
 import com.optic.app_movil_tfc.presentation.screen.workOrder.WorkOrderViewModel
 
 @Composable
-fun PreventivContent(viewModel: WorkOrderViewModel = hiltViewModel()) {
+fun PreventivContent(
+    navHostController: NavHostController,
+    viewModel: WorkOrderViewModel = hiltViewModel()) {
     Box(
         modifier = Modifier.padding(16.dp),
         contentAlignment = Alignment.Center
@@ -45,10 +48,10 @@ fun PreventivContent(viewModel: WorkOrderViewModel = hiltViewModel()) {
         if (viewModel.preventivData.accessCode != "") {
             PreventivSection(viewModel)
         } else if (viewModel.faultData.accessCode != "") {
-            Log.d("jairo", "condicion")
             FaultSection(viewModel)
         } else {
-            //Quitar pantalla de la pila y volver al anterior
+            //navHostController.popBackStack()
+            //navHostController.navigate("access")
         }
     }
 }
@@ -57,7 +60,6 @@ fun PreventivContent(viewModel: WorkOrderViewModel = hiltViewModel()) {
 fun PreventivSection(viewModel: WorkOrderViewModel) {
     Column(modifier = Modifier.padding(5.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         InputPreventivSection(viewModel)
-        BottomButton(onClick = { viewModel.onUpdatePreventiv() })
         CardList(viewModel)
 
     }
@@ -112,9 +114,7 @@ fun InputFaultSection(viewModel: WorkOrderViewModel) {
             },
             enabled = false
         )
-        BottomButton(
-            onClick = { viewModel.onUpdateFault() }
-        )
+
         OutlinedTextField(
             modifier = Modifier.padding(5.dp),
             value = fault.description,
@@ -231,21 +231,5 @@ fun CardList(viewModel: WorkOrderViewModel) {
                 }
             )
         }
-    }
-}
-
-@Composable
-fun BottomButton(onClick: () -> Unit) {
-    FloatingActionButton(
-        onClick = onClick,
-        backgroundColor = Color(0xFF64B5F6), // Color azul claro
-        shape = CircleShape,
-        modifier = Modifier.padding(16.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Default.Check,
-            contentDescription = "Guardar",
-            tint = Color.White
-        )
     }
 }

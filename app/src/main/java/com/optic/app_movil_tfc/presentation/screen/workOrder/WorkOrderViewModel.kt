@@ -74,7 +74,7 @@ class WorkOrderViewModel @Inject constructor(
     }
 
     fun onUpdateFault() {
-        Log.d("updateFault", "Voy a crear el objeto")
+
 
         var fault = Fault(
             id = faultData!!.id,

@@ -28,7 +28,7 @@ fun AppNavigation(
             })
         ) {
             it.arguments?.getString("accessCode")?.let {
-                PreventivScreen(accessCode = it)
+                PreventivScreen(navHostController = navController,accessCode = it)
             }
         }
 
