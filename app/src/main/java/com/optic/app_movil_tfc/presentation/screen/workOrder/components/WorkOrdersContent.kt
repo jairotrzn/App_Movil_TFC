@@ -1,11 +1,16 @@
 package com.optic.app_movil_tfc.presentation.screen.workOrder.components
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,14 +33,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.optic.app_movil_tfc.R
 import com.optic.app_movil_tfc.domain.model.Fault
 import com.optic.app_movil_tfc.domain.model.Preventiv
 import com.optic.app_movil_tfc.presentation.screen.workOrder.WorkOrderViewModel
+import java.time.format.TextStyle
 
 @Composable
 fun PreventivContent(
@@ -46,9 +54,19 @@ fun PreventivContent(
         contentAlignment = Alignment.Center
     ) {
         if (viewModel.preventivData.accessCode != "") {
-            PreventivSection(viewModel)
+            if(viewModel.preventivData.state != "Finalizado"){
+                PreventivSection(viewModel)
+            }else{
+                FinisLogp()
+            }
+
         } else if (viewModel.faultData.accessCode != "") {
-            FaultSection(viewModel)
+            if(viewModel.faultData.state != "Finalizado"){
+                FaultSection(viewModel)
+            }else{
+                FinisLogp()
+            }
+
         } else {
             //navHostController.popBackStack()
             //navHostController.navigate("access")
@@ -231,5 +249,30 @@ fun CardList(viewModel: WorkOrderViewModel) {
                 }
             )
         }
+    }
+}
+
+@Composable
+fun FinisLogp() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            modifier = Modifier
+                .height(300.dp)
+                .fillMaxWidth(),
+            painter = painterResource(id = R.drawable.finish_logo),
+            contentDescription = "Logo",
+        )
+
+        Text(
+            text = "Esta orden ha finalizado con éxito",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 16.dp)
+        )
     }
 }

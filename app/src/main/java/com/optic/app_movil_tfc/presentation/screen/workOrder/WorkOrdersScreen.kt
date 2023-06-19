@@ -34,7 +34,7 @@ fun PreventivScreen(
             PreventivContent(navHostController)
         },
         bottomBar = {
-            Column(modifier = Modifier.padding(5.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.padding(start = 140.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 if (viewModel.preventivData.accessCode != "") {
                     BottomButton {
                         viewModel.onUpdatePreventiv()
@@ -60,14 +60,14 @@ fun PreventivScreen(
 fun BottomButton(onClick: () -> Unit) {
     FloatingActionButton(
         onClick = onClick,
-        backgroundColor = Color(0xFF64B5F6), // Color azul claro
+        backgroundColor = Color(0xFF015485), // Color azul claro
         shape = CircleShape,
         modifier = Modifier.padding(16.dp)
     ) {
         Icon(
             imageVector = Icons.Default.Check,
             contentDescription = "Guardar",
-            tint = Color.White
+            tint = Color.White,
         )
     }
 }

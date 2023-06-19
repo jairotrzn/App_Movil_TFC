@@ -1,6 +1,7 @@
 package com.optic.app_movil_tfc.presentation.screen.access.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +18,8 @@ import androidx.navigation.NavHostController
 import com.optic.app_movil_tfc.R
 import com.optic.app_movil_tfc.presentation.screen.access.AccessViewModel
 import androidx.compose.material.*
+import androidx.compose.ui.graphics.Color
+import com.optic.app_movil_tfc.ui.theme.logoColor
 
 @Composable
 fun AccessContent(
@@ -31,7 +34,7 @@ fun AccessContent(
         ) {
             Logo()
             AccessCodeTextField(viewModel)
-            AccessButtom(viewModel,navController)
+            AccessButton(viewModel,navController)
         }
     }
 
@@ -64,18 +67,20 @@ fun AccessCodeTextField(viewModel: AccessViewModel) {
 }
 
 @Composable
-fun AccessButtom(
+fun AccessButton(
     viewModel: AccessViewModel,
-    navController : NavHostController){
+    navController: NavHostController
+) {
     Button(
-        modifier = Modifier.padding(
-            top=10.dp,
-            start = 30.dp
-        ),
+        modifier = Modifier
+            .padding(top = 10.dp, start = 20.dp),
         onClick = {
-
             navController.navigate("preventivs/${viewModel.state.accessCode}")
         },
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = logoColor,
+            contentColor = Color.White
+        )
     ) {
         Text(text = "Aceptar")
     }
